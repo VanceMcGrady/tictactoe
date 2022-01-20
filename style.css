@@ -28,24 +28,27 @@ body {
   border-bottom: var(--game-square-border);
 }
 #b {
-  border-right: var(--game-square-border);
+  border-bottom: var(--game-square-border);
 }
 #c {
   border-bottom: var(--game-square-border);
+  border-left: var(--game-square-border);
 }
 #d {
-  border-bottom: var(--game-square-border);
-}
-#e {
-  border: var(--game-square-border);
+  border-right: var(--game-square-border);
 }
 
 #f {
-  border-bottom: var(--game-square-border);
+  border-left: var(--game-square-border);
 }
 #g {
+  border-top: var(--game-square-border);
   border-right: var(--game-square-border);
 }
 #h {
-  border-right: var(--game-square-border);
+  border-top: var(--game-square-border);
+}
+#i {
+  border-top: var(--game-square-border);
+  border-left: var(--game-square-border);
 }

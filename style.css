@@ -1,0 +1,51 @@
+:root {
+  --game-square-border: 1px solid black;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-container {
+  margin-top: 8%;
+
+  display: grid;
+  grid-template-rows: repeat(3, 150px);
+  grid-template-columns: repeat(3, 150px);
+}
+
+.field {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+#a {
+  border-right: var(--game-square-border);
+  border-bottom: var(--game-square-border);
+}
+#b {
+  border-right: var(--game-square-border);
+}
+#c {
+  border-bottom: var(--game-square-border);
+}
+#d {
+  border-bottom: var(--game-square-border);
+}
+#e {
+  border: var(--game-square-border);
+}
+
+#f {
+  border-bottom: var(--game-square-border);
+}
+#g {
+  border-right: var(--game-square-border);
+}
+#h {
+  border-right: var(--game-square-border);
+}

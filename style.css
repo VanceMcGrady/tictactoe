@@ -1,8 +1,55 @@
-.game-container {
-  display: grid;
-  grid-template-columns: 3;
-  grid-template-rows: 3;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-body {
+.game-container {
+  margin: 10%;
+  display: grid;
+  grid-template-columns: 150px 150px 150px;
+  grid-template-rows: 150px 150px 150px;
+  border: 1px solid white;
+}
+
+.game-square {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#a {
+  border-top: none;
+  border-left: none;
+}
+
+#b {
+  border-top: none;
+}
+
+#c {
+  border-top: none;
+  border-right: none;
+}
+
+#d {
+  border-left: none;
+}
+
+#f {
+  border-right: none;
+}
+
+#g {
+  border-left: none;
+  border-bottom: none;
+}
+#h {
+  border-bottom: none;
+}
+#i {
+  border-bottom: none;
+  border-right: none;
 }

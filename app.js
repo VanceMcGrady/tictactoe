@@ -4,7 +4,7 @@
 
   squaresArray.forEach(
     (item) =>
-      (gameContainer.innerHTML += ` <div id="${item}" class="field">${item}</div>`)
+      (gameContainer.innerHTML += ` <div id="${item}" class="field"></div>`)
   );
 })();
 
@@ -18,4 +18,14 @@ class Player {
   }
 }
 
-(function gameController() {})(console.log("IIFE"));
+const gameController = (() => {
+  const changeTurn = () => {
+    if (gameController.whosTurnIsIt === "x") {
+      gameController.whosTurnIsIt = "o";
+    }
+    if (gameController.whosTurnIsIt === "o") {
+      gameController.whosTurnIsIt = "x";
+    }
+  };
+  return { whosTurnIsIt: "x" };
+})();

@@ -23,6 +23,10 @@ body {
   justify-content: center;
 }
 
+.field:hover {
+  background-color: rgb(240, 143, 213);
+}
+
 #a {
   border-right: var(--game-square-border);
   border-bottom: var(--game-square-border);

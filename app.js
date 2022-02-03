@@ -1,4 +1,4 @@
-(function gameDisplay() {
+const gameDisplay = (() => {
   const squaresArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
   const gameContainer = document.querySelector(".game-container");
 
@@ -19,13 +19,23 @@ class Player {
 }
 
 const gameController = (() => {
-  const changeTurn = () => {
-    if (gameController.whosTurnIsIt === "x") {
-      gameController.whosTurnIsIt = "o";
+  let whosTurnIsIt = true;
+  function changeTurn() {
+    gameController.whosTurnIsIt = !gameController.whosTurnIsIt;
+  }
+  return { whosTurnIsIt, changeTurn };
+})();
+
+(function eventListeners() {
+  window.addEventListener("click", (e) => {
+    if (e.target.classList.contains("field")) {
+      if (gameController.whosTurnIsIt) {
+        e.target.innerText = "X";
+      }
+      if (!gameController.whosTurnIsIt) {
+        e.target.innerText = "O";
+      }
+      gameController.changeTurn();
     }
-    if (gameController.whosTurnIsIt === "o") {
-      gameController.whosTurnIsIt = "x";
-    }
-  };
-  return { whosTurnIsIt: "x" };
+  });
 })();

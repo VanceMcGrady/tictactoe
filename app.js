@@ -27,15 +27,20 @@ const gameController = (() => {
 })();
 
 (function eventListeners() {
-  window.addEventListener("click", (e) => {
-    if (e.target.classList.contains("field")) {
-      if (gameController.whosTurnIsIt) {
-        e.target.innerText = "X";
-      }
-      if (!gameController.whosTurnIsIt) {
-        e.target.innerText = "O";
-      }
-      gameController.changeTurn();
-    }
-  });
+  const squares = document.querySelectorAll(".field");
+  squares.forEach((square) =>
+    square.addEventListener(
+      "click",
+      (e) => {
+        if (gameController.whosTurnIsIt) {
+          e.target.innerText = "X";
+        }
+        if (!gameController.whosTurnIsIt) {
+          e.target.innerText = "O";
+        }
+        gameController.changeTurn();
+      },
+      { once: true }
+    )
+  );
 })();

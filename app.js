@@ -6,7 +6,7 @@ const gameDisplay = (() => {
 
   squaresArray.forEach(
     (item) =>
-      (gameContainer.innerHTML += ` <div id="${item}" class="field">${item}</div>`)
+      (gameContainer.innerHTML += ` <div id="${item}" class="field" data-id="${item}"></div>`)
   );
 
   return { squaresArray, gameContainer, playerCardX, playerCardO };
@@ -23,6 +23,7 @@ class Player {
 }
 
 const gameController = (() => {
+  // state of which player's turn it is. true = x and false = 0
   let whosTurnIsIt = true;
 
   function changeTurn() {
@@ -31,11 +32,58 @@ const gameController = (() => {
     gameDisplay.playerCardX.classList.toggle("turn-highlight");
     gameDisplay.playerCardO.classList.toggle("turn-highlight");
   }
-  return { whosTurnIsIt, changeTurn };
+
+  function returnArrayOfCurrentBoard() {
+    const fieldsArray = Array.from(document.querySelectorAll(".field"));
+    let currentBoard = fieldsArray.map((item) => {
+      return item.innerText;
+    });
+    return currentBoard;
+  }
+
+  function checkForWin() {
+    let plays = returnArrayOfCurrentBoard();
+
+    let horizontal1 = [plays[0], plays[1], plays[2]];
+    let horizontal2 = [plays[3], plays[4], plays[5]];
+    let horizontal3 = [plays[6], plays[7], plays[8]];
+
+    let vertical1 = [plays[0], plays[3], plays[6]];
+    let vertical2 = [plays[1], plays[4], plays[7]];
+    let vertical3 = [plays[2], plays[5], plays[8]];
+
+    let diagonal1 = [plays[0], plays[4], plays[8]];
+    let diagonal2 = [plays[2], plays[4], plays[6]];
+
+    let allPossibleWins = [
+      horizontal1,
+      horizontal2,
+      horizontal3,
+      vertical1,
+      vertical2,
+      vertical3,
+      diagonal1,
+      diagonal2,
+    ];
+
+    let checkGame = allPossibleWins.forEach((trio) => {
+      if (trio.every((field) => field === "X")) {
+        console.log("X wins");
+      }
+      if (trio.every((field) => field === "O")) {
+        console.log("O wins");
+      }
+    });
+  }
+
+  return { whosTurnIsIt, changeTurn, checkForWin };
 })();
 
 (function eventListeners() {
   const squares = document.querySelectorAll(".field");
+  const checkForWinBtn = document.querySelector(".check-for-win");
+
+  checkForWinBtn.addEventListener("click", gameController.checkForWin);
 
   squares.forEach((square) =>
     square.addEventListener(

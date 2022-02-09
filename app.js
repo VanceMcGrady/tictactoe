@@ -4,12 +4,48 @@ const gameDisplay = (() => {
   const playerCardX = document.querySelector("#player-x");
   const playerCardO = document.querySelector("#player-o");
 
-  squaresArray.forEach(
-    (item) =>
-      (gameContainer.innerHTML += ` <div id="${item}" class="field" data-id="${item}"></div>`)
-  );
+  function displayBoard() {
+    gameContainer.innerHTML = "";
+    squaresArray.forEach(
+      (item) =>
+        (gameContainer.innerHTML += ` <div id="${item}" class="field" data-id="${item}"></div>`)
+    );
+  }
 
-  return { squaresArray, gameContainer, playerCardX, playerCardO };
+  const eventListeners = (function () {
+    const squares = document.querySelectorAll(".field");
+
+    function returnSquares() {
+      squares.forEach((square) =>
+        square.addEventListener(
+          "click",
+          (e) => {
+            if (gameController.whosTurnIsIt) {
+              e.target.innerText = "X";
+            }
+            if (!gameController.whosTurnIsIt) {
+              e.target.innerText = "O";
+            }
+            gameController.checkForWin();
+            gameController.changeTurn();
+          },
+          { once: true }
+        )
+      );
+    }
+    return { returnSquares };
+  })();
+
+  displayBoard();
+  eventListeners.returnSquares();
+
+  return {
+    squaresArray,
+    gameContainer,
+    playerCardX,
+    playerCardO,
+    displayBoard,
+  };
 })();
 
 class Player {
@@ -70,36 +106,14 @@ const gameController = (() => {
     let checkGame = allPossibleWins.forEach((trio) => {
       if (trio.every((field) => field === "X")) {
         gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>X Wins!</h1></div>`;
-        setTimeout(gameDisplay, 1000);
+        setTimeout(gameDisplay.displayBoard, 1000);
       }
       if (trio.every((field) => field === "O")) {
         gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>O Wins!</h1></div>`;
+        setTimeout(gameDisplay.displayBoard, 1000);
       }
     });
   }
 
   return { whosTurnIsIt, changeTurn, checkForWin };
-})();
-
-(function eventListeners() {
-  const squares = document.querySelectorAll(".field");
-  const checkForWinBtn = document.querySelector(".check-for-win");
-
-  checkForWinBtn.addEventListener("click", gameController.checkForWin);
-
-  squares.forEach((square) =>
-    square.addEventListener(
-      "click",
-      (e) => {
-        if (gameController.whosTurnIsIt) {
-          e.target.innerText = "X";
-        }
-        if (!gameController.whosTurnIsIt) {
-          e.target.innerText = "O";
-        }
-        gameController.changeTurn();
-      },
-      { once: true }
-    )
-  );
 })();

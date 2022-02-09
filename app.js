@@ -60,9 +60,18 @@ const gameController = (() => {
 
   function changeTurn() {
     gameController.whosTurnIsIt = !gameController.whosTurnIsIt;
+    console.log(gameController.whosTurnIsIt);
+    if (gameController.whosTurnIsIt === true) {
+      gameDisplay.playerCardX.classList.add("turn-highlight");
+      gameDisplay.playerCardO.classList.remove("turn-highlight");
+    }
+    if (gameController.whosTurnIsIt !== true) {
+      gameDisplay.playerCardO.classList.add("turn-highlight");
+      gameDisplay.playerCardX.classList.remove("turn-highlight");
+    }
 
-    gameDisplay.playerCardX.classList.toggle("turn-highlight");
-    gameDisplay.playerCardO.classList.toggle("turn-highlight");
+    // gameDisplay.playerCardX.classList.toggle("turn-highlight");
+    // gameDisplay.playerCardO.classList.toggle("turn-highlight");
   }
 
   function returnArrayOfCurrentBoard() {
@@ -102,16 +111,21 @@ const gameController = (() => {
     let checkGame = allPossibleWins.forEach((trio) => {
       if (trio.every((field) => field === "X")) {
         gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>X Wins!</h1></div>`;
-        setTimeout(gameDisplay.displayBoard, 1000);
+        setTimeout(resetGame, 1000);
       }
       if (trio.every((field) => field === "O")) {
         gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>O Wins!</h1></div>`;
-        setTimeout(gameDisplay.displayBoard, 1000);
+        setTimeout(resetGame, 1000);
       }
     });
   }
 
-  return { whosTurnIsIt, changeTurn, checkForWin };
+  function resetGame() {
+    gameDisplay.displayBoard();
+    gameController.whosTurnIsIt = false;
+    changeTurn();
+  }
+  return { whosTurnIsIt, changeTurn, checkForWin, resetGame };
 })();
 
 // const eventListeners = (function () {

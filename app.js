@@ -10,12 +10,10 @@ const gameDisplay = (() => {
       (item) =>
         (gameContainer.innerHTML += ` <div id="${item}" class="field" data-id="${item}"></div>`)
     );
-  }
 
-  const eventListeners = (function () {
-    const squares = document.querySelectorAll(".field");
+    const eventListeners = (function () {
+      const squares = document.querySelectorAll(".field");
 
-    function returnSquares() {
       squares.forEach((square) =>
         square.addEventListener(
           "click",
@@ -32,12 +30,10 @@ const gameDisplay = (() => {
           { once: true }
         )
       );
-    }
-    return { returnSquares };
-  })();
+    })();
+  }
 
   displayBoard();
-  eventListeners.returnSquares();
 
   return {
     squaresArray,
@@ -117,3 +113,24 @@ const gameController = (() => {
 
   return { whosTurnIsIt, changeTurn, checkForWin };
 })();
+
+// const eventListeners = (function () {
+//   const squares = document.querySelectorAll(".field");
+
+//   squares.forEach((square) =>
+//     square.addEventListener(
+//       "click",
+//       (e) => {
+//         if (gameController.whosTurnIsIt) {
+//           e.target.innerText = "X";
+//         }
+//         if (!gameController.whosTurnIsIt) {
+//           e.target.innerText = "O";
+//         }
+//         gameController.checkForWin();
+//         gameController.changeTurn();
+//       },
+//       { once: true }
+//     )
+//   );
+// })();

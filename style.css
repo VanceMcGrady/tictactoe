@@ -64,6 +64,13 @@ body {
   background-color: rgb(240, 143, 213);
 }
 
+.winner-display {
+  font-size: 30px;
+  width: 450px;
+  text-align: center;
+  margin-top: 20%;
+}
+
 #a {
   border-right: var(--game-square-border);
   border-bottom: var(--game-square-border);

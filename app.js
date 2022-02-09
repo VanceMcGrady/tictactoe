@@ -35,6 +35,7 @@ const gameController = (() => {
 
   function returnArrayOfCurrentBoard() {
     const fieldsArray = Array.from(document.querySelectorAll(".field"));
+
     let currentBoard = fieldsArray.map((item) => {
       return item.innerText;
     });
@@ -68,10 +69,11 @@ const gameController = (() => {
 
     let checkGame = allPossibleWins.forEach((trio) => {
       if (trio.every((field) => field === "X")) {
-        console.log("X wins");
+        gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>X Wins!</h1></div>`;
+        setTimeout(gameDisplay, 1000);
       }
       if (trio.every((field) => field === "O")) {
-        console.log("O wins");
+        gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>O Wins!</h1></div>`;
       }
     });
   }

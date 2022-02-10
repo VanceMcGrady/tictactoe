@@ -11,7 +11,7 @@ const gameDisplay = (() => {
         (gameContainer.innerHTML += ` <div id="${item}" class="field" data-id="${item}"></div>`)
     );
 
-    const eventListeners = (function () {
+    (function () {
       const squares = document.querySelectorAll(".field");
 
       squares.forEach((square) =>
@@ -60,7 +60,7 @@ const gameController = (() => {
 
   function changeTurn() {
     gameController.whosTurnIsIt = !gameController.whosTurnIsIt;
-    console.log(gameController.whosTurnIsIt);
+
     if (gameController.whosTurnIsIt === true) {
       gameDisplay.playerCardX.classList.add("turn-highlight");
       gameDisplay.playerCardO.classList.remove("turn-highlight");
@@ -69,9 +69,6 @@ const gameController = (() => {
       gameDisplay.playerCardO.classList.add("turn-highlight");
       gameDisplay.playerCardX.classList.remove("turn-highlight");
     }
-
-    // gameDisplay.playerCardX.classList.toggle("turn-highlight");
-    // gameDisplay.playerCardO.classList.toggle("turn-highlight");
   }
 
   function returnArrayOfCurrentBoard() {
@@ -108,13 +105,20 @@ const gameController = (() => {
       diagonal2,
     ];
 
-    let checkGame = allPossibleWins.forEach((trio) => {
+    allPossibleWins.forEach((trio) => {
+      // X wins
       if (trio.every((field) => field === "X")) {
         gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>X Wins!</h1></div>`;
         setTimeout(resetGame, 1000);
       }
+      // O wins
       if (trio.every((field) => field === "O")) {
         gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>O Wins!</h1></div>`;
+        setTimeout(resetGame, 1000);
+      }
+      // Draw
+      if (plays.every((field) => field === "X" || field === "O")) {
+        gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>Draw!</h1></div>`;
         setTimeout(resetGame, 1000);
       }
     });
@@ -125,7 +129,13 @@ const gameController = (() => {
     gameController.whosTurnIsIt = false;
     changeTurn();
   }
-  return { whosTurnIsIt, changeTurn, checkForWin, resetGame };
+  return {
+    whosTurnIsIt,
+    changeTurn,
+    checkForWin,
+    resetGame,
+    returnArrayOfCurrentBoard,
+  };
 })();
 
 // const eventListeners = (function () {

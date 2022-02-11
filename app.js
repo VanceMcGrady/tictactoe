@@ -25,6 +25,7 @@ const gameDisplay = (() => {
               e.target.innerText = "O";
             }
             gameController.checkForWin();
+            gameController.checkForDraw();
             gameController.changeTurn();
           },
           { once: true }
@@ -110,19 +111,20 @@ const gameController = (() => {
       if (trio.every((field) => field === "X")) {
         gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>X Wins!</h1></div>`;
         setTimeout(resetGame, 1000);
+        return;
       }
       // O wins
       if (trio.every((field) => field === "O")) {
         gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>O Wins!</h1></div>`;
         setTimeout(resetGame, 1000);
+        return;
       }
       // Draw
-      if (plays.every((field) => field === "X" || field === "O")) {
-        gameDisplay.gameContainer.innerHTML = `<div class="winner-display"><h1>Draw!</h1></div>`;
-        setTimeout(resetGame, 1000);
-      }
+      returnArrayOfCurrentBoard().includes("") ? null : console.log("draw");
     });
   }
+
+  function checkForDraw() {}
 
   function resetGame() {
     gameDisplay.displayBoard();
@@ -133,6 +135,7 @@ const gameController = (() => {
     whosTurnIsIt,
     changeTurn,
     checkForWin,
+    checkForDraw,
     resetGame,
     returnArrayOfCurrentBoard,
   };
